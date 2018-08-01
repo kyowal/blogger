@@ -22,24 +22,24 @@
                         <b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog' version='1'>
                             <b:includable id='main' var='top'>
                                 <b:if cond='data:blog.pageType == &quot;item&quot;'>
-									<b:include data='post' name='header-post' />
+									<b:include name='header-post' />
                                     <!-- Layout for Single Page -->
                                     <b:loop values='data:posts' var='post' index='ind'>
                                         <b:include data='post' name='single-post' />
                                     </b:loop>
                                 <b:else/>
                                     <b:if cond='data:blog.pageType == &quot;static_page&quot;'>
-											<!-- Include Header-->
-											<b:include data='post' name='header-page' />
+											<!-- Include Header -->
+											<b:include name='header-page' />
 											<!-- Layout for Static Page -->
 											<b:loop values='data:posts' var='post' index='ind'>
 												<b:include data='post' name='static-page' />
 											</b:loop>
                                     <b:else/>
-											<b:include data='post' name='header-home' />									
+											<b:include name='header-home' />									
 											<!-- Layout for Label Page -->
 											<b:loop values='data:posts' reverse='true' var='post' index='ind'>
-												<b:include data='post' name='label-page' />
+												<b:include data='post' name='labelpage' />
 											</b:loop>
 											<b:include name='card-ajax-load' />
                                     </b:if>
@@ -47,17 +47,17 @@
                             </b:includable>
 							
 							<!-- Header Home-->
-							<b:includable id='header-home' var='post'>
+							<b:includable id='header-home'>
                             
 							</b:includable>
 							
 							<!-- Header Page-->
-							<b:includable id='header-page' var='post'>
+							<b:includable id='header-page'>
                             
 							</b:includable>
 							
 							<!-- Header Post-->
-							<b:includable id='header-post' var='post'>
+							<b:includable id='header-post'>
                             
 							</b:includable>
 							
@@ -132,18 +132,17 @@
                             </b:includable>
 
                             <!-- Block C: -->
-                            <b:includable id='label-page' var='post'>
+                            <b:includable id='labelpage' var='post'>
                                 <div expr:class='&quot;_listouter list&quot; + data:ind'>
                                     <div class="_listpost">
-                                        <!-- Image -->
-										<b:include name='card-image' />
+                                        <b:include name='card-image' />
 										<b:include name='card-title' />
 										<b:include name='card-content' />
 										<b:include name='card-strip' />
 									</div>
                                 </div>
                             </b:includable>
-								<!-- Block C: Image-->
+								<!-- Block C: Image -->
 								<b:includable id='card-image' var='post'>
 									<div class="">
 										<b:if cond='data:post.firstImageUrl'>
@@ -154,19 +153,19 @@
                                     </div>
 								</b:includable>
 								
-								<!-- Block C: Title-->
+								<!-- Block C: Title -->
 								<b:includable id='card-title' var='post'>
-									<div class="">
+									<div>
 										<data:post.title/>
 									</div>
 								</b:includable>
-								<!-- Block C: Content-->
+								<!-- Block C: Content -->
 								<b:includable id='card-content' var='post'>
 									<div class="">
 										<data:post.body/>
 									</div>
                                 </b:includable>
-								<!-- Block C: Strip-->
+								<!-- Block C: Strip -->
 								<b:includable id='card-strip' var='post'>
 									<div class="">
 										<div expr:class='&quot;hidden indexer&quot; + data:ind' expr:data-link='data:post.url'>Read Now</div>
@@ -196,40 +195,7 @@
 
                         </b:widget>
                     </b:section>
-                </div>
-
-                <div class='hidden'>
-                    <b:section id='footer' preferred='no'></b:section>
-                </div>
-            </div>
-        </div>
-
-        <div class="bottomnav ohide" id="fotnav">
-            <div class="_obj"><a id="_shrwp" target="_blank" href="#">Whatsapp</a></div>
-            <div class="_obj"><a id="_btnrm" target="_blank" href="#">Read more</a></div>
-        </div>
-
-        <!-- Dailogs  -->
-        <div class="modal fade adspull" id="adsswip" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
-                <div class="_adjnc">
-                    <div id="onpageads"></div>
-                    <div id="_btmbxhs">
-                        <div class="_btmba">
-                            <div class="adsskmsg">
-                                <div class="adsmgska">You can check this advertise?</div>
-                                <div class="adsmgskb"><span>Ad can skip in </span><span id="closetime">00:06</span> second</div>
-                                <div class="adsbyg">Ads by Google</div>
-                            </div>
-                        </div>
-                        <div class="_btmbb">
-                            <div class="skipad ohide" id="_askipadd"><span>Skip Ad</span><i class="skipadi fas fa-arrow-right"></i></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+		<b:section id='footer' preferred='no'></b:section>
         <!-- This is a container Of next and Previous list -->
         <div id="previousload" class="hidden" data-oldurl=""></div>
         <div id="nextload" class="hidden" data-newurl=""></div>
