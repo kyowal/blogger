@@ -4,9 +4,9 @@
 
     <head>
         <meta content='width=device-width, initial-scale=1.0' name='viewport' />
-        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" />
-        <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet" />
-        <link rel="stylesheet" type="text/css" href="#" />
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css"/>
+        <link rel="stylesheet" type="text/css" href="https://raw.githubusercontent.com/kyowal/blogger/development/style.css"/>
         <b:skin>
             <![CDATA[]]>
         </b:skin>
@@ -17,33 +17,52 @@
             <div class="logo">logo</div>
         </div>
 
-        <div expr:class='&quot;container &quot; + data:blog.pageType'>
-            <div class='row'>
-                <div class='col-xs-12'>
+        
                     <b:section class='main' id='main' showaddelement='no'>
                         <b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog' version='1'>
                             <b:includable id='main' var='top'>
                                 <b:if cond='data:blog.pageType == &quot;item&quot;'>
+									<b:include data='post' name='header-post' />
                                     <!-- Layout for Single Page -->
                                     <b:loop values='data:posts' var='post' index='ind'>
                                         <b:include data='post' name='single-post' />
                                     </b:loop>
-                                    <b:else/>
+                                <b:else/>
                                     <b:if cond='data:blog.pageType == &quot;static_page&quot;'>
-                                        <!-- Layout for Static Page -->
-                                        <b:loop values='data:posts' var='post' index='ind'>
-                                            <b:include data='post' name='static-page' />
-                                        </b:loop>
-                                        <b:else/>
-                                        <!-- Layout for Label Page -->
-                                        <b:loop values='data:posts' reverse='true' var='post' index='ind'>
-                                            <b:include data='post' name='label-page' />
-                                        </b:loop>
-                                        <b:include name='card-ajax-load' />
+											<!-- Include Header-->
+											<b:include data='post' name='header-page' />
+											<!-- Layout for Static Page -->
+											<b:loop values='data:posts' var='post' index='ind'>
+												<b:include data='post' name='static-page' />
+											</b:loop>
+                                    <b:else/>
+											<b:include data='post' name='header-home' />									
+											<!-- Layout for Label Page -->
+											<b:loop values='data:posts' reverse='true' var='post' index='ind'>
+												<b:include data='post' name='label-page' />
+											</b:loop>
+											<b:include name='card-ajax-load' />
                                     </b:if>
                                 </b:if>
                             </b:includable>
-
+							
+							<!-- Header Home-->
+							<b:includable id='header-home' var='post'>
+                            
+							</b:includable>
+							
+							<!-- Header Page-->
+							<b:includable id='header-page' var='post'>
+                            
+							</b:includable>
+							
+							<!-- Header Post-->
+							<b:includable id='header-post' var='post'>
+                            
+							</b:includable>
+							
+							
+							
                             <!-- Block A: -->
                             <b:includable id='single-post' var='post'>
                                 <div id="singleview">
@@ -120,11 +139,8 @@
 										<b:include name='card-image' />
 										<b:include name='card-title' />
 										<b:include name='card-content' />
-										
-                                        
-                                        <div expr:class='&quot;hidden indexer&quot; + data:ind' expr:data-title='data:post.title' id="wpshare" expr:data-link='&quot;whatsapp://send?text=&quot; + data:post.url + &quot;&amp; Open Now&quot; + data:post.title'></div>
-                                        <div expr:class='&quot;hidden indexer&quot; + data:ind' id="readnow" expr:data-link='data:post.url'></div>
-                                    </div>
+										<b:include name='card-strip' />
+									</div>
                                 </div>
                             </b:includable>
 								<!-- Block C: Image-->
@@ -150,11 +166,12 @@
 										<data:post.body/>
 									</div>
                                 </b:includable>
-								<!-- Block C: Title-->
-								<b:includable id='card-content' var='post'>
+								<!-- Block C: Strip-->
+								<b:includable id='card-strip' var='post'>
 									<div class="">
-										<data:post.body/>
-									</div>
+										<div expr:class='&quot;hidden indexer&quot; + data:ind' expr:data-link='data:post.url'>Read Now</div>
+										<div expr:class='&quot;hidden indexer&quot; + data:ind' expr:data-title='data:post.title' expr:data-link='data:post.url'>Send to Friends</div>
+                                    </div>
                                 </b:includable>
 								
 							
@@ -192,15 +209,6 @@
             <div class="_obj"><a id="_btnrm" target="_blank" href="#">Read more</a></div>
         </div>
 
-        <div class='container'>
-            <div class='row'>
-                <div id="initload" class="initload">
-                    <div class="_initloadmsg">
-                        <h3><span class="_loadone">Loading...</span><span class="_loadtwo">Please wait</span></h3></div>
-                    <div class="_initloadimg"><img src='https://goo.gl/RyNcUW' /></div>
-                </div>
-            </div>
-        </div>
         <!-- Dailogs  -->
         <div class="modal fade adspull" id="adsswip" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
@@ -228,9 +236,6 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
         <script async="true" src="https://www.google-analytics.com/analytics.js"></script>
-        <script src="http://view.kyowal.com/krishnaprem/1.0.5/jquery.jTinder.js"></script>
-        <script src="http://view.kyowal.com/krishnaprem/1.0.5/jquery.transform2d.js"></script>
-        <script src="http://view.kyowal.com/krishnaprem/1.0.5/main.js"></script>
+        <script src="https://raw.githubusercontent.com/kyowal/blogger/development/script.js"></script>
     </body>
-
     </html>
