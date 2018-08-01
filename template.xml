@@ -1,95 +1,236 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE html>
-<html lang='en' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
-	<head>
-	<meta content='width=device-width, initial-scale=1.0' name='viewport'/>
-	<b:skin><![CDATA[]]></b:skin>
-	</head>
-  <body>
-   <div class='container'>
-    <div class='' id='container'>
-      <div class='row'>
-        <div class='col-xs-12 clearfix'>
-          <b:section class='main' id='main' showaddelement='no'>
-            <b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog' version='1'>            
-			<b:includable id='main' var='top'>
-                  <!-- posts -->
-                  <div class="wrap">
-					<div id="gridView" class="grid">
-						<ul>
-							<b:loop values='data:posts' var='post'>
-								<b:include data='post' name='post'/>
-							</b:loop>
-						</ul>
-					</div>
-                  </div>
-                  <div class='hidden'><img src='https://merkeltexas.com/wp-content/plugins/easy-facebook-likebox/public/assets/images/loader.gif'/></div>
-				  <!-- navigation -->
-                  <b:include name='nextprev'/>
-            </b:includable>
-			  
-			  <b:includable id='post' var='post'>
-                  <b:if cond='data:blog.pageType == &quot;item&quot;'>
-					   <div expr:id='data:post.id'>
-						   <!-- Code start for single post -->
-							<b:if cond='data:post.firstImageUrl'>
-								<img expr:src='data:post.firstImageUrl'/>
-							</b:if>
-							<data:post.title/>
-							<data:post.body/>
-						</div>
-						<!-- Code end for single post -->
-					<b:else/>
-						<!-- Code end for single page -->
-						<b:if cond='data:blog.pageType == &quot;static_page&quot;'>
-							<div>
-								<b:if cond='data:post.firstImageUrl'>
-									<img expr:src='data:post.firstImageUrl'/>
-								</b:if>
-								<data:post.title/>
-								<data:post.body/>
-							</div>
-						<b:else/>
-						<!-- Code end for single page -->
-						<li class="pane1">
-                          	<b:if cond='data:post.firstImageUrl'>
-								<img class="img" expr:src='data:post.firstImageUrl'/>
-							<b:else/>
-								<img class="img" src='http://www.tiptoncommunications.com/components/com_easyblog/themes/wireframe/images/placeholder-image.png'/>
-							</b:if>
-							<div><data:post.title/></div>
-							<div><data:post.body/></div>
-						</li>
-						</b:if>
-                  </b:if>
-              </b:includable>
-               </b:widget>
-          </b:section>
-          <!-- END Loop --> 
+    <!DOCTYPE html>
+    <html lang='en' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+
+    <head>
+        <meta content='width=device-width, initial-scale=1.0' name='viewport' />
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="#" />
+        <b:skin>
+            <![CDATA[]]>
+        </b:skin>
+    </head>
+
+    <body>
+        <div class="header" id="header">
+            <div class="logo">logo</div>
         </div>
-        <!-- END Content --> 
-        <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12 footer-top'>
-			<b:section class='footer1' id='footer1' preferred='no'>
-				<b:widget id='Label1' locked='false' title='Labels' type='Label'>
-						 <b:widget-settings>
-						   <b:widget-setting name='sorting'>ALPHA</b:widget-setting>
-						   <b:widget-setting name='display'>CLOUD</b:widget-setting>
-						   <b:widget-setting name='selectedLabelsList'/>
-						   <b:widget-setting name='showType'>ALL</b:widget-setting>
-						   <b:widget-setting name='showFreqNumbers'>true</b:widget-setting>
-						 </b:widget-settings>
-					<b:includable id='main'>
-						<b:if cond='data:blog.pageType == "static_page"'> </b:if>
-					</b:includable>
-				</b:widget>
-			</b:section>
+
+        <div expr:class='&quot;container &quot; + data:blog.pageType'>
+            <div class='row'>
+                <div class='col-xs-12'>
+                    <b:section class='main' id='main' showaddelement='no'>
+                        <b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog' version='1'>
+                            <b:includable id='main' var='top'>
+                                <b:if cond='data:blog.pageType == &quot;item&quot;'>
+                                    <!-- Layout for Single Page -->
+                                    <b:loop values='data:posts' var='post' index='ind'>
+                                        <b:include data='post' name='single-post' />
+                                    </b:loop>
+                                    <b:else/>
+                                    <b:if cond='data:blog.pageType == &quot;static_page&quot;'>
+                                        <!-- Layout for Static Page -->
+                                        <b:loop values='data:posts' var='post' index='ind'>
+                                            <b:include data='post' name='static-page' />
+                                        </b:loop>
+                                        <b:else/>
+                                        <!-- Layout for Label Page -->
+                                        <b:loop values='data:posts' reverse='true' var='post' index='ind'>
+                                            <b:include data='post' name='label-page' />
+                                        </b:loop>
+                                        <b:include name='card-ajax-load' />
+                                    </b:if>
+                                </b:if>
+                            </b:includable>
+
+                            <!-- Block A: -->
+                            <b:includable id='single-post' var='post'>
+                                <div id="singleview">
+                                    <div class="_smaincontent">
+                                        <!-- Title -->
+                                        <b:include name='title' />
+                                        <!-- Advertisement -->
+                                        <b:include name='advertise' />
+                                        <!-- Navigation -->
+                                        <b:include name='navigate' />
+                                        <!-- Content -->
+										<b:include name='content' />
+                                        <!-- Navigation -->
+                                        <b:include name='navigate' />
+                                        <!-- Whatsapp Join -->
+                                        <b:include name='wpjoin' />
+                                        <!-- Facebook Like -->
+                                        <b:include name='facebook' />										
+                                        <!-- Related List -->
+                                        <b:include name='single-related' />
+									</div>
+                                </div>
+                            </b:includable>
+
+								<!-- Block A -> Title : -->
+								<b:includable id='title' var='post'>
+									<div><data:post.title/></div>
+								</b:includable>
+								
+								<!-- Block A -> Navigate : -->
+								<b:includable id='navigate' var='post'>
+									<div><data:post.title/></div>
+								</b:includable>
+								
+								<!-- Block A -> Content : -->
+								<b:includable id='content' var='post'>
+									<div><data:post.body/></div>
+								</b:includable>
+								
+								<!-- Block A -> WP Join : -->
+								<b:includable id='wpjoin' var='post'>
+									<div>WP</div>
+								</b:includable>
+								
+								<!-- Block A -> Facebook : -->
+								<b:includable id='facebook' var='post'>
+									<div>Fb</div>
+								</b:includable>
+								
+								<!-- Block A -> Facebook : -->
+								<b:includable id='single-related' var='post'>
+									<div class="_rntent">
+                                        <div class="_ndchj">Read More...</div>
+                                        <ul id="relatedcall"></ul>
+                                    </div>
+								</b:includable>
+														
+                            <!-- Block B: -->
+                            <b:includable id='static-page' var='post'>
+                                <div>
+                                    <b:if cond='data:post.firstImageUrl'>
+                                        <img expr:src='data:post.firstImageUrl' />
+                                    </b:if>
+                                    <data:post.title/>
+                                    <data:post.body/>
+                                </div>
+                            </b:includable>
+
+                            <!-- Block C: -->
+                            <b:includable id='label-page' var='post'>
+                                <div expr:class='&quot;_listouter list&quot; + data:ind'>
+                                    <div class="_listpost">
+                                        <!-- Image -->
+										<b:include name='card-image' />
+										<b:include name='card-title' />
+										<b:include name='card-content' />
+										
+                                        
+                                        <div expr:class='&quot;hidden indexer&quot; + data:ind' expr:data-title='data:post.title' id="wpshare" expr:data-link='&quot;whatsapp://send?text=&quot; + data:post.url + &quot;&amp; Open Now&quot; + data:post.title'></div>
+                                        <div expr:class='&quot;hidden indexer&quot; + data:ind' id="readnow" expr:data-link='data:post.url'></div>
+                                    </div>
+                                </div>
+                            </b:includable>
+								<!-- Block C: Image-->
+								<b:includable id='card-image' var='post'>
+									<div class="">
+										<b:if cond='data:post.firstImageUrl'>
+											<img expr:src='data:post.firstImageUrl' />
+										<b:else/>
+											<img src='https://goo.gl/hWnykN' />
+										</b:if>
+                                    </div>
+								</b:includable>
+								
+								<!-- Block C: Title-->
+								<b:includable id='card-title' var='post'>
+									<div class="">
+										<data:post.title/>
+									</div>
+								</b:includable>
+								<!-- Block C: Content-->
+								<b:includable id='card-content' var='post'>
+									<div class="">
+										<data:post.body/>
+									</div>
+                                </b:includable>
+								<!-- Block C: Title-->
+								<b:includable id='card-content' var='post'>
+									<div class="">
+										<data:post.body/>
+									</div>
+                                </b:includable>
+								
+							
+                            <!-- Block D: -->
+                            <b:includable id='card-ajax-load' var='post'>
+                                <div class="hidden" id="_nextlist"><b:include name='nextprev' /></div>
+                            </b:includable>
+
+                            <!-- Block E: -->
+                            <b:includable id='header' var='post'>
+
+                            </b:includable>
+
+                            <!-- Block F: -->
+                            <b:includable id='footer' var='post'>
+
+                            </b:includable>
+							<!-- Block G: -->
+                            <b:includable id='advertise' var='post'>
+								
+                            </b:includable>
+
+                        </b:widget>
+                    </b:section>
+                </div>
+
+                <div class='hidden'>
+                    <b:section id='footer' preferred='no'></b:section>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-    <!-- END Container --> 
-    <div id='footer'></div>
-    <!-- END Footer -->
-    </div>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-</body>
-</html>
+
+        <div class="bottomnav ohide" id="fotnav">
+            <div class="_obj"><a id="_shrwp" target="_blank" href="#">Whatsapp</a></div>
+            <div class="_obj"><a id="_btnrm" target="_blank" href="#">Read more</a></div>
+        </div>
+
+        <div class='container'>
+            <div class='row'>
+                <div id="initload" class="initload">
+                    <div class="_initloadmsg">
+                        <h3><span class="_loadone">Loading...</span><span class="_loadtwo">Please wait</span></h3></div>
+                    <div class="_initloadimg"><img src='https://goo.gl/RyNcUW' /></div>
+                </div>
+            </div>
+        </div>
+        <!-- Dailogs  -->
+        <div class="modal fade adspull" id="adsswip" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="_adjnc">
+                    <div id="onpageads"></div>
+                    <div id="_btmbxhs">
+                        <div class="_btmba">
+                            <div class="adsskmsg">
+                                <div class="adsmgska">You can check this advertise?</div>
+                                <div class="adsmgskb"><span>Ad can skip in </span><span id="closetime">00:06</span> second</div>
+                                <div class="adsbyg">Ads by Google</div>
+                            </div>
+                        </div>
+                        <div class="_btmbb">
+                            <div class="skipad ohide" id="_askipadd"><span>Skip Ad</span><i class="skipadi fas fa-arrow-right"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- This is a container Of next and Previous list -->
+        <div id="previousload" class="hidden" data-oldurl=""></div>
+        <div id="nextload" class="hidden" data-newurl=""></div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
+        <script async="true" src="https://www.google-analytics.com/analytics.js"></script>
+        <script src="http://view.kyowal.com/krishnaprem/1.0.5/jquery.jTinder.js"></script>
+        <script src="http://view.kyowal.com/krishnaprem/1.0.5/jquery.transform2d.js"></script>
+        <script src="http://view.kyowal.com/krishnaprem/1.0.5/main.js"></script>
+    </body>
+
+    </html>
