@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
     <!DOCTYPE html>
     <html lang='en' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
-
     <head>
         <meta content='width=device-width, initial-scale=1.0' name='viewport' />
         <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
@@ -11,13 +10,7 @@
             <![CDATA[]]>
         </b:skin>
     </head>
-
     <body>
-        <div class="header" id="header">
-            <div class="logo">logo</div>
-        </div>
-
-        
                     <b:section class='main' id='main' showaddelement='no'>
                         <b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog' version='1'>
                             <b:includable id='main' var='top'>
@@ -68,21 +61,21 @@
                                 <div id="singleview">
                                     <div class="_smaincontent">
                                         <!-- Title -->
-                                        <b:include name='title' />
+                                        <b:include data='post' name='title' />
                                         <!-- Advertisement -->
                                         <b:include name='advertise' />
                                         <!-- Navigation -->
-                                        <b:include name='navigate' />
+                                        <b:include data='post' name='navigate' />
                                         <!-- Content -->
-										<b:include name='content' />
+										<b:include data='post' name='content' />
                                         <!-- Navigation -->
-                                        <b:include name='navigate' />
+                                        <b:include data='post' name='navigate' />
                                         <!-- Whatsapp Join -->
                                         <b:include name='wpjoin' />
                                         <!-- Facebook Like -->
                                         <b:include name='facebook' />										
                                         <!-- Related List -->
-                                        <b:include name='single-related' />
+                                        <b:include data='post' name='single-related' />
 									</div>
                                 </div>
                             </b:includable>
@@ -135,10 +128,10 @@
                             <b:includable id='labelpage' var='post'>
                                 <div expr:class='&quot;_listouter list&quot; + data:ind'>
                                     <div class="_listpost">
-                                        <b:include name='card-image' />
-										<b:include name='card-title' />
-										<b:include name='card-content' />
-										<b:include name='card-strip' />
+                                        <b:include data='post' name='card-image' />
+										<b:include data='post' name='card-title' />
+										<b:include data='post' name='card-content' />
+										<b:include data='post' name='card-strip' />
 									</div>
                                 </div>
                             </b:includable>
@@ -175,21 +168,21 @@
 								
 							
                             <!-- Block D: -->
-                            <b:includable id='card-ajax-load' var='post'>
+                            <b:includable id='card-ajax-load'>
                                 <div class="hidden" id="_nextlist"><b:include name='nextprev' /></div>
                             </b:includable>
 
                             <!-- Block E: -->
-                            <b:includable id='header' var='post'>
+                            <b:includable id='header'>
 
                             </b:includable>
 
                             <!-- Block F: -->
-                            <b:includable id='footer' var='post'>
+                            <b:includable id='footer'>
 
                             </b:includable>
 							<!-- Block G: -->
-                            <b:includable id='advertise' var='post'>
+                            <b:includable id='advertise'>
 								
                             </b:includable>
 
