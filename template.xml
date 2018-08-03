@@ -11,183 +11,185 @@
         </b:skin>
     </head>
     <body>
-                    <b:section class='main' id='main' showaddelement='no'>
-                        <b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog' version='1'>
-                            <b:includable id='main' var='top'>
-                                <b:if cond='data:blog.pageType == &quot;item&quot;'>
-									<b:include name='header-post' />
-                                    <!-- Layout for Single Page -->
-                                    <b:loop values='data:posts' var='post' index='ind'>
-                                        <b:include data='post' name='single-post' />
-                                    </b:loop>
-                                <b:else/>
-                                    <b:if cond='data:blog.pageType == &quot;static_page&quot;'>
-											<!-- Include Header -->
-											<b:include name='header-page' />
-											<!-- Layout for Static Page -->
-											<b:loop values='data:posts' var='post' index='ind'>
-												<b:include data='post' name='static-page' />
-											</b:loop>
-                                    <b:else/>
-											<b:include name='header-home' />									
-											<!-- Layout for Label Page -->
-											<b:loop values='data:posts' var='post' index='ind'>
-												<b:include data='post' name='labelpage' />
-											</b:loop>
-											<b:include name='card-ajax-load' />
-                                    </b:if>
-                                </b:if>
-                            </b:includable>
-							
-							<!-- Header Home-->
-							<b:includable id='header-home'>
-                            
-							</b:includable>
-							
-							<!-- Header Page-->
-							<b:includable id='header-page'>
-                            
-							</b:includable>
-							
-							<!-- Header Post-->
-							<b:includable id='header-post'>
-                            
-							</b:includable>
-							
-							
-							
-                            <!-- Block A: -->
-                            <b:includable id='single-post' var='post'>
-                                <div id="singleview">
-                                    <div class="_smaincontent">
-                                        <!-- Title -->
-                                        <b:include data='post' name='title' />
-                                        <!-- Advertisement -->
-                                        <b:include name='advertise' />
-                                        <!-- Navigation -->
-                                        <b:include data='post' name='navigate' />
-                                        <!-- Content -->
-										<b:include data='post' name='content' />
-                                        <!-- Navigation -->
-                                        <b:include data='post' name='navigate' />
-                                        <!-- Whatsapp Join -->
-                                        <b:include name='wpjoin' />
-                                        <!-- Facebook Like -->
-                                        <b:include name='facebook' />										
-                                        <!-- Related List -->
-                                        <b:include data='post' name='single-related' />
-									</div>
-                                </div>
-                            </b:includable>
+		<b:section class='main container' id='main' showaddelement='no'>
+			<b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog' version='1'>
+			  <b:includable id='main' var='top'>
+			   <div class="row">
+				<div class="col-sm-4">
+					<b:if cond='data:blog.pageType == &quot;item&quot;'>
+						<b:include name='header-post' />
+						<!-- Layout for Single Page -->
+						<b:loop values='data:posts' var='post' index='ind'>
+							<b:include data='post' name='single-post' />
+						</b:loop>
+					<b:else/>
+						<b:if cond='data:blog.pageType == &quot;static_page&quot;'>
+								<!-- Include Header -->
+								<b:include name='header-page' />
+								<!-- Layout for Static Page -->
+								<b:loop values='data:posts' var='post' index='ind'>
+									<b:include data='post' name='static-page' />
+								</b:loop>
+						<b:else/>
+								<b:include name='header-home' />									
+								<!-- Layout for Label Page -->
+								<b:loop values='data:posts' var='post' index='ind'>
+									<b:include data='post' name='labelpage' />
+								</b:loop>
+								<b:include name='card-ajax-load' />
+						</b:if>
+					</b:if>
+				   </div>
+				 </div>
+				</b:includable>
+				
+				<!-- Header Home-->
+				<b:includable id='header-home'>
+				
+				</b:includable>
+				
+				<!-- Header Page-->
+				<b:includable id='header-page'>
+				
+				</b:includable>
+				
+				<!-- Header Post-->
+				<b:includable id='header-post'>
+				
+				</b:includable>
+				
+				
+				
+				<!-- Block A: -->
+				<b:includable id='single-post' var='post'>
+					<div id="singleview">
+						<div class="_smaincontent">
+							<!-- Title -->
+							<b:include data='post' name='title' />
+							<!-- Advertisement -->
+							<b:include name='advertise' />
+							<!-- Navigation -->
+							<b:include data='post' name='navigate' />
+							<!-- Content -->
+							<b:include data='post' name='content' />
+							<!-- Navigation -->
+							<b:include data='post' name='navigate' />
+							<!-- Whatsapp Join -->
+							<b:include name='wpjoin' />
+							<!-- Facebook Like -->
+							<b:include name='facebook' />										
+							<!-- Related List -->
+							<b:include data='post' name='single-related' />
+						</div>
+					</div>
+				</b:includable>
 
-								<!-- Block A -> Title : -->
-								<b:includable id='title' var='post'>
-									<div><data:post.title/></div>
-								</b:includable>
-								
-								<!-- Block A -> Navigate : -->
-								<b:includable id='navigate' var='post'>
-									<div><data:post.title/></div>
-								</b:includable>
-								
-								<!-- Block A -> Content : -->
-								<b:includable id='content' var='post'>
-									<div><data:post.body/></div>
-								</b:includable>
-								
-								<!-- Block A -> WP Join : -->
-								<b:includable id='wpjoin' var='post'>
-									<div>WP</div>
-								</b:includable>
-								
-								<!-- Block A -> Facebook : -->
-								<b:includable id='facebook' var='post'>
-									<div>Fb</div>
-								</b:includable>
-								
-								<!-- Block A -> Facebook : -->
-								<b:includable id='single-related' var='post'>
-									<div class="_rntent">
-                                        <div class="_ndchj">Read More...</div>
-                                        <ul id="relatedcall"></ul>
-                                    </div>
-								</b:includable>
-														
-                            <!-- Block B: -->
-                            <b:includable id='static-page' var='post'>
-                                <div>
-                                    <b:if cond='data:post.firstImageUrl'>
-                                        <img expr:src='data:post.firstImageUrl' />
-                                    </b:if>
-                                    <data:post.title/>
-                                    <data:post.body/>
-                                </div>
-                            </b:includable>
+					<!-- Block A -> Title : -->
+					<b:includable id='title' var='post'>
+						<div><data:post.title/></div>
+					</b:includable>
+					
+					<!-- Block A -> Navigate : -->
+					<b:includable id='navigate' var='post'>
+						<div><data:post.title/></div>
+					</b:includable>
+					
+					<!-- Block A -> Content : -->
+					<b:includable id='content' var='post'>
+						<div><data:post.body/></div>
+					</b:includable>
+					
+					<!-- Block A -> WP Join : -->
+					<b:includable id='wpjoin' var='post'>
+						<div>WP</div>
+					</b:includable>
+					
+					<!-- Block A -> Facebook : -->
+					<b:includable id='facebook' var='post'>
+						<div>Fb</div>
+					</b:includable>
+					
+					<!-- Block A -> Facebook : -->
+					<b:includable id='single-related' var='post'>
+						<div class="_rntent">
+							<div class="_ndchj">Read More...</div>
+							<ul id="relatedcall"></ul>
+						</div>
+					</b:includable>
+											
+				<!-- Block B: -->
+				<b:includable id='static-page' var='post'>
+					<div>
+						<b:if cond='data:post.firstImageUrl'>
+							<img expr:src='data:post.firstImageUrl' />
+						</b:if>
+						<data:post.title/>
+						<data:post.body/>
+					</div>
+				</b:includable>
 
-                            <!-- Block C: -->
-                            <b:includable id='labelpage' var='post'>
-                                <div expr:class='&quot;_listouter list&quot; + data:ind'>
-                                    <div class="_listpost">
-                                        <b:include data='post' name='card-image' />
-										<b:include data='post' name='card-title' />
-										<!--<b:include data='post' name='card-content' />-->
-										<b:include data='post' name='card-strip' />
-									</div>
-                                </div>
-                            </b:includable>
-								<!-- Block C: Image -->
-								<b:includable id='card-image' var='post'>
-									<div class="">
-										<b:if cond='data:post.firstImageUrl'>
-											<img expr:src='data:post.firstImageUrl' />
-										<b:else/>
-											<img src='https://goo.gl/hWnykN' />
-										</b:if>
-                                    </div>
-								</b:includable>
-								
-								<!-- Block C: Title -->
-								<b:includable id='card-title' var='post'>
-									<div>
-										<data:post.title/>
-									</div>
-								</b:includable>
-								<!-- Block C: Content -->
-								<b:includable id='card-content' var='post'>
-									<div class="">
-										<data:post.body/>
-									</div>
-                                </b:includable>
-								<!-- Block C: Strip -->
-								<b:includable id='card-strip' var='post'>
-									<div class="">
-										<div expr:class='&quot;hidden indexer&quot; + data:ind' expr:data-link='data:post.url'>Read Now</div>
-										<div expr:class='&quot;hidden indexer&quot; + data:ind' expr:data-title='data:post.title' expr:data-link='data:post.url'>Send to Friends</div>
-                                    </div>
-                                </b:includable>
-								
-							
-                            <!-- Block D: -->
-                            <b:includable id='card-ajax-load'>
-                                <div class="hidden" id="_nextlist"><b:include name='nextprev' /></div>
-                            </b:includable>
+				<!-- Block C: -->
+				<b:includable id='labelpage' var='post'>
+					<div expr:class='&quot;_card post&quot; + data:ind'>
+							<b:include data='post' name='card-image' />
+							<b:include data='post' name='card-title' />
+							<!--<b:include data='post' name='card-content' />-->
+							<b:include data='post' name='card-strip' />
+					</div>
+				</b:includable>
+					<!-- Block C: Image -->
+					<b:includable id='card-image' var='post'>
+						<div class="cardimg">
+							<b:if cond='data:post.firstImageUrl'>
+								<img class="cimg" expr:src='data:post.firstImageUrl' />
+							<b:else/>
+								<img class="cimg" src='https://goo.gl/hWnykN' />
+							</b:if>
+						</div>
+					</b:includable>
+					
+					<!-- Block C: Title -->
+					<b:includable id='card-title' var='post'>
+						<div class="cardtitle">
+							<data:post.title/>
+						</div>
+					</b:includable>
+					<!-- Block C: Content -->
+					<b:includable id='card-content' var='post'>
+						<div class="cardbody">
+							<data:post.body/>
+						</div>
+					</b:includable>
+					<!-- Block C: Strip -->
+					<b:includable id='card-strip' var='post'>
+						<div class="cardstrip">
+							<div expr:class='&quot;read indexer&quot; + data:ind' expr:data-link='data:post.url'>Read Now</div>
+							<div expr:class='&quot;share indexer&quot; + data:ind' expr:data-title='data:post.title' expr:data-link='data:post.url'>Send to Friends</div>
+						</div>
+					</b:includable>
+					
+				
+				<!-- Block D: -->
+				<b:includable id='card-ajax-load'>
+					<div class="hidden" id="_nextlist"><b:include name='nextprev' /></div>
+				</b:includable>
 
-                            <!-- Block E: -->
-                            <b:includable id='header'>
+				<!-- Block E: -->
+				<b:includable id='header'>
 
-                            </b:includable>
+				</b:includable>
 
-                            <!-- Block F: -->
-                            <b:includable id='footer'>
+				<!-- Block F: -->
+				<b:includable id='footer'>
 
-                            </b:includable>
-							<!-- Block G: -->
-                            <b:includable id='advertise'>
-								
-                            </b:includable>
+				</b:includable>
+				<!-- Block G: -->
+				<b:includable id='advertise'>
+					
+				</b:includable>
 
-                        </b:widget>
-                    </b:section>
+			</b:widget>
+		</b:section>
 		<b:section id='footer' preferred='no'></b:section>
         <!-- This is a container Of next and Previous list -->
         <div id="previousload" class="hidden" data-oldurl=""></div>
