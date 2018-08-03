@@ -31,7 +31,7 @@
                                     <b:else/>
 											<b:include name='header-home' />									
 											<!-- Layout for Label Page -->
-											<b:loop values='data:posts' reverse='true' var='post' index='ind'>
+											<b:loop values='data:posts' var='post' index='ind'>
 												<b:include data='post' name='labelpage' />
 											</b:loop>
 											<b:include name='card-ajax-load' />
@@ -130,7 +130,7 @@
                                     <div class="_listpost">
                                         <b:include data='post' name='card-image' />
 										<b:include data='post' name='card-title' />
-										<b:include data='post' name='card-content' />
+										<!--<b:include data='post' name='card-content' />-->
 										<b:include data='post' name='card-strip' />
 									</div>
                                 </div>
