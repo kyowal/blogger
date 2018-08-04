@@ -15,7 +15,7 @@
 			<b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog' version='1'>
 			  <b:includable id='main' var='top'>
 			   <div class="row">
-				<div class="col-sm-4">
+				<div class="col-sm-12">
 					<b:if cond='data:blog.pageType == &quot;item&quot;'>
 						<b:include name='header-post' />
 						<!-- Layout for Single Page -->
@@ -62,8 +62,8 @@
 				
 				<!-- Block A: -->
 				<b:includable id='single-post' var='post'>
-					<div id="singleview">
-						<div class="_smaincontent">
+					<div id="_single" class="_single">
+						<div class="_scontent">
 							<!-- Title -->
 							<b:include data='post' name='title' />
 							<!-- Advertisement -->
@@ -86,54 +86,53 @@
 
 					<!-- Block A -> Title : -->
 					<b:includable id='title' var='post'>
-						<div><data:post.title/></div>
+						<div class="_stitle"><data:post.title/></div>
 					</b:includable>
 					
 					<!-- Block A -> Navigate : -->
 					<b:includable id='navigate' var='post'>
-						<div><data:post.title/></div>
+						<div class="_snav">
+							<a class="_snavl" expr:href="">Previous</a>
+							<a class="_snavr" expr:href="">Next</a>							
+						</div>
 					</b:includable>
-					
+
 					<!-- Block A -> Content : -->
 					<b:includable id='content' var='post'>
-						<div><data:post.body/></div>
+						<div class="_scontent"><data:post.body/></div>
 					</b:includable>
 					
 					<!-- Block A -> WP Join : -->
 					<b:includable id='wpjoin' var='post'>
-						<div>WP</div>
+						<div class="_swshare">WP</div>
 					</b:includable>
 					
 					<!-- Block A -> Facebook : -->
 					<b:includable id='facebook' var='post'>
-						<div>Fb</div>
+						<div class="_sfbjoin">Fb</div>
 					</b:includable>
 					
 					<!-- Block A -> Facebook : -->
 					<b:includable id='single-related' var='post'>
 						<div class="_rntent">
 							<div class="_ndchj">Read More...</div>
-							<ul id="relatedcall"></ul>
+							<ul id="relatedcall" class="_srltd"></ul>
 						</div>
 					</b:includable>
 											
 				<!-- Block B: -->
 				<b:includable id='static-page' var='post'>
-					<div>
-						<b:if cond='data:post.firstImageUrl'>
-							<img expr:src='data:post.firstImageUrl' />
-						</b:if>
-						<data:post.title/>
+					<div class="_page">
 						<data:post.body/>
 					</div>
 				</b:includable>
-
+					
 				<!-- Block C: -->
 				<b:includable id='labelpage' var='post'>
-					<div expr:class='&quot;_card post&quot; + data:ind'>
+					<div expr:class='_card' expr:class='&quot;_card post&quot; + data:ind'>
 							<b:include data='post' name='card-image' />
 							<b:include data='post' name='card-title' />
-							<!--<b:include data='post' name='card-content' />-->
+							<b:include data='post' name='card-content' />
 							<b:include data='post' name='card-strip' />
 					</div>
 				</b:includable>

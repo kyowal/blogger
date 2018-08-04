@@ -21,23 +21,11 @@ var app = {};
 			case 'pageview':
 				ga('send', 'pageview', location.pathname);
 			break;
-			case 'event':
-				ga('send', 'event', object, eventname, label, value);
-			break;
-			case 'leftswipe':
-				ga('send', 'event', 'Page Swipe', 'Left Swipe', 'Swipe Left - ' + label, 1);
-			break;
-			case 'rightswipe':
-				ga('send', 'event', 'Page Swipe', 'Right Swipe', 'Swipe Right - ' + label, 1);
-			break;
-			case 'readmore':
-				ga('send', 'event', 'Read More', 'Read More Click', 'Read More - ' + label, 1);
+			case 'gotoread':
+				ga('send', 'event', 'Read More');
 			break;
 			case 'wpshare':
 				ga('send', 'event', 'Soical Share', 'Whatsapp Share', 'Whatsapp Share - ' + label, 1);
-			break;
-			case 'fbshare':
-				ga('send', 'event', 'Soical Share', 'Facebook Share', 'Facebook Share - ' + label, 1);
 			break;
 			case 'openrelated':
 				ga('send', 'event', 'Open Article', 'Open Related Article', 'Open Article - ' + label, 1);
@@ -45,27 +33,16 @@ var app = {};
 			case 'homepage':
 				ga('send', 'event', 'User Landing', 'Page Landing', 'Landing on Homepage', 1);
 			break;
-			case 'singlepage':
-				ga('send', 'event', 'User Landing', 'Page Landing', 'Landing on Article Page', 1);
-			break;
-			case 'postreading':
+			case 'reading':
 				ga('send', 'event', 'Post Reading', 'Single Post Reading', 'Single Post Read - ' + label, 1);
 			break;
-			/** Record User Skip the subscription ***/
-			case 'skipsubscribe':
-				ga('send', 'event', 'Subscription Popup', 'Email Subscription', 'Skip Email Subscription', 1);
-			break;
-			case 'wpskipsubscribe':
+			case 'wpskip':
 				ga('send', 'event', 'Subscription Popup', 'Whatsapp Subscription', 'Skip Wp Subscription', 1);
 			break;
-			/** Record User subscribed our service ***/
-			case 'emailsubscribe':
-				ga('send', 'event', 'Subscription Popup', 'Email Subscription', 'Email Subscribed', 1);
-			break;
-			case 'wpsubscribe':
+			case 'wpjoin':
 				ga('send', 'event', 'Subscription Popup', 'Whatsapp Subscription', 'Wp Subscribed', 1);
 			break;
-			case 'advertisement':
+			case 'adsclick':
 				ga('send', 'event', 'Advertisement', label, value, 1);
 			break;
 			case 'skipads':
