@@ -1,28 +1,40 @@
 $(document).ready(function(){
-var app = {};
-(function(_self) { 
-    _self.validateMobile = function(phone) {
+var app = function() {
+    this.debuging = true;
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', (this.debuging == true)? 'UA-99096977-1':'UA-105527165-1', 'auto'); // Change 
+	this.push('pageview');
+}
+$.extend( app.prototype,{
+	validateMobile: function(phone) {
 		var re = /\d{5}([- ]*)\d{6}/;
 		return re.test(String(phone).toLowerCase());
-    };
-	
-	_self.validateEmail = function(email) {
+    },
+	validateEmail: function(email) {
 		var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 		return re.test(String(email).toLowerCase());
-    };
-	
-	_self.push = function(action, label, value, object, eventname) {
+    },
+	push: function(action, label, value, object, eventname) {
 		action 	= (typeof action !== 'undefined') ? action : false;
 		object 	= (typeof object !== 'undefined') ? object : 'Not Available';
 		label 	= (typeof label !== 'undefined') ? label : 'Not Available';
 		value 	= (typeof value !== 'undefined') ? value : 'Not Available';
-		debug("Analytics Call: Action: " + action + " :: Object: " + object + " :: Event: " + eventname + " :: Label : " + label + " :: Value: " + value);
+		this.debug("Analytics Call: Action: " + action + " :: Object: " + object + " :: Event: " + eventname + " :: Label : " + label + " :: Value: " + value);
 		switch(action){
 			case 'pageview':
 				ga('send', 'pageview', location.pathname);
 			break;
 			case 'gotoread':
-				ga('send', 'event', 'Read More');
+				ga('send', 'event', 'Clicks', 'Homepage Clicks', 'Read More');
+			break;
+			case 'previouspage':
+				ga('send', 'event', 'Clicks', 'Single Page Clicks', 'Previous Page Clicks');
+			break;
+			case 'nextpage':
+				ga('send', 'event', 'Clicks', 'Single Page Clicks', 'Next Page Clicks');
+			break;
+			case 'clickonlogo':
+				ga('send', 'event', 'Clicks', 'Clicks on Logo', 'Logo Clicked');
 			break;
 			case 'wpshare':
 				ga('send', 'event', 'Soical Share', 'Whatsapp Share', 'Whatsapp Share - ' + label, 1);
@@ -49,9 +61,8 @@ var app = {};
 				ga('send', 'event', 'Skip Advertisement', label, value, 1);
 			break;
 		}
-    };
-	
-	_self.loadMore = function($url, $isnext) {
+    },
+	loadMore: function($url, $isnext) {
 		$isnext = ( $isnext == true )? true : false;
 		$.ajax({
 			dataType: "html",
@@ -79,26 +90,37 @@ var app = {};
 					}
 			}
 		});
-    };
-	
-	_self.l = function() {
-		
-    };
-	
-	_self.l = function() {
-		
-    };
-	
-	_self.l = function() {
-		
-    };
-	
-	_self.l = function() {
-		
-    };
-	
-	
+    },
+	debug: function($content) {
+		if(this.debuging == true){
+			console.log($content);
+		}
+    },
+	redirect: function($url) {
+		window.location.href = $url;
+    }
+});
 
-	
-})(app);
+$app = new app();
+/*** Jquery Event Handle ***/
+$('body').on('click', '.read', function() {
+		$url = $(this).data('link');
+		$app.push("gotoread");
+		$app.redirect($url);
+});
+
+$('body').on('click', '.logo', function() {
+		$app.push("clickonlogo");
+		$app.redirect('/');
+});
+
+$('body').on('click', '.navl', function() {
+		$url = $(this).data('link');
+		if($(this).hasClass("_snavl")){
+			$app.push("previouspage");
+		}else if($(this).hasClass("_snavr")){
+			$app.push("nextpage");
+		}		
+		$app.redirect($url);
+});
 });
